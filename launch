@@ -1,0 +1,20 @@
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='image_conversion',          # Your package name
+            executable='image_conversion_node',  # Your node executable name
+            name='image_conversion_node',
+            output='screen',
+            parameters=[{
+                # You can add parameters if your node accepts any
+            }],
+            remappings=[
+                # Remap topics if needed, e.g.
+                # ('/usb_cam/image_raw', '/usb_cam/image_raw'),
+                # ('/output_image', '/converted_image')
+            ]
+        )
+    ])

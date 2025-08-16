@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>image_conversion</name>
+  <version>0.0.1</version>
+  <description>Image conversion node for ROS 2 to convert between color and grayscale images.</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>cv_bridge</depend>
+
+  <exec_depend>python3</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+</package>
