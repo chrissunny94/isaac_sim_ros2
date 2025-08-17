@@ -1,3 +1,6 @@
 lerobot/*
 lerobot/
 nvidia_isaac-sim_ros2_docker/
+Isaac_sim/colcon_ws/build
+Isaac_sim/colcon_ws/log
+Isaac_sim/colcon_ws/install
