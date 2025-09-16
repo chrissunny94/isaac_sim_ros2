@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  isaac-sim:
+    image: nvcr.io/nvidia/isaac-sim:4.2.0
+    container_name: isaac_ros2_container
+    runtime: nvidia
+    environment:
+      - ACCEPT_EULA=Y
+      - PRIVACY_CONSENT=Y
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      # X11 socket for GUI
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # Isaac Sim user data (persists settings, cache, logs)
+      - isaac_user_data:/root/.nvidia-omniverse
+      # Host ROS 2 workspace (keeps your custom packages like iw_hub_navigation)
+      - ~/ros2_ws:/workspace/ros2_ws:rw
+    network_mode: host
+    stdin_open: true
+    tty: true
+
+volumes:
+  isaac_user_data:
