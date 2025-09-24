@@ -24,9 +24,11 @@ class ImageConversionNode(Node):
 
         # Service to set mode
         self.srv = self.create_service(SetBool, 'set_mode', self.set_mode_callback)
+        self.current_image = Image()
 
     def image_callback(self, msg):
         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        self.current_image = msg
         if self.mode == 1:
             # Convert to grayscale
             cv_img = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
@@ -42,6 +44,10 @@ class ImageConversionNode(Node):
         response.message = "Set to Greyscale" if self.mode == 1 else "Set to Color"
         self.get_logger().info(response.message)
         return response
+    def new_function(self):
+        #access msg from image_callback 
+        self.current_image 
+        
 
 def main(args=None):
     rclpy.init(args=args)
