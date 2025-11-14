@@ -15,12 +15,18 @@ services:
       # X11 socket for GUI
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       # Isaac Sim user data (persists settings, cache, logs)
-      - isaac_user_data:/root/.nvidia-omniverse
-      # Host ROS 2 workspace (keeps your custom packages like iw_hub_navigation)
+      - isaac_user_data:/home/developer/.nvidia-omniverse
+      # Host ROS 2 workspace
       - ~/ros2_ws:/workspace/ros2_ws:rw
     network_mode: host
     stdin_open: true
     tty: true
+    command: >
+      bash -c "
+        id -u developer &>/dev/null || useradd -m -s /bin/bash developer &&
+        chown -R developer:developer /workspace /home/developer &&
+        sudo -u developer bash
+      "
 
 volumes:
   isaac_user_data:
