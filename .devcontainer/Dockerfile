@@ -18,3 +18,4 @@ RUN apt-get update && apt-get install -y curl gnupg2 lsb-release && \
       ros-humble-desktop python3-rosdep python3-colcon-common-extensions \
       build-essential git cmake python3-pip && \
     rosdep init && rosdep update && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /workspace && chown -R developer:developer /workspace

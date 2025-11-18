@@ -8,22 +8,22 @@
   "workspaceFolder": "/workspace",
 
   "shutdownAction": "stopCompose",
-
   "overrideCommand": false,
-
   "remoteUser": "developer",
 
-  "features": {},
-
   "runArgs": [
-    "--gpus=all"
+    "--gpus=all",
+    "--env=$DISPLAY",
+    "--env=QT_X11_NO_MITSHM=1"
   ],
 
   "containerEnv": {
     "ACCEPT_EULA": "Y",
     "PRIVACY_CONSENT": "Y",
     "ROS_DISTRO": "humble",
-    "OMNIVERSE_DIR": "/opt/isaac-sim"
+    "OMNIVERSE_DIR": "/opt/isaac-sim",
+    "QT_X11_NO_MITSHM": "1",
+    "DISPLAY": "${localEnv:DISPLAY}"
   },
 
   "extensions": [
@@ -33,5 +33,5 @@
     "ms-vscode.cmake-tools"
   ],
 
-  "postStartCommand": "bash -lc 'source /opt/ros/humble/setup.bash; source /workspace/ros2_ws/install/setup.bash'"
+  // "postStartCommand": "bash -lc 'source /opt/ros/humble/setup.bash; source /workspace/ros2_ws/install/setup.bash'"
 }
