@@ -1,28 +1,37 @@
 {
-  "name": "IsaacSim Dev Container",
-  "dockerFile": "Dockerfile",
-  "workspaceFolder": "/home/${localEnv:USER}/ros2_ws",
+  "name": "IsaacSim ROS2 DevContainer",
+
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "isaac-sim",
+  "workspaceFolder": "/workspace",
+
   "shutdownAction": "stopCompose",
-  "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash",
-    "python.pythonPath": "/usr/bin/python3"
+
+  "overrideCommand": false,
+
+  "remoteUser": "developer",
+
+  "features": {},
+
+  "runArgs": [
+    "--gpus=all"
+  ],
+
+  "containerEnv": {
+    "ACCEPT_EULA": "Y",
+    "PRIVACY_CONSENT": "Y",
+    "ROS_DISTRO": "humble",
+    "OMNIVERSE_DIR": "/opt/isaac-sim"
   },
+
   "extensions": [
-    "ms-vscode-remote.remote-containers",
     "ms-iot.vscode-ros",
     "ms-python.python",
     "ms-vscode.cpptools",
     "ms-vscode.cmake-tools"
   ],
-  "forwardPorts": [8888, 5000, 8080],
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/ros2_ws,type=bind,consistency=cached"
-  ],
-  "remoteUser": "${localEnv:USER}",
-  "overrideCommand": false,
-  "containerEnv": {
-    "ROS_DISTRO": "humble",
-    "OMNIVERSE_DIR": "/opt/isaac-sim"
-  },
-  "postStartCommand": "source /opt/ros/humble/setup.bash && echo 'ROS2 environment sourced'"
+
+  "postStartCommand": "bash -lc 'source /opt/ros/humble/setup.bash; source /workspace/ros2_ws/install/setup.bash'"
 }
