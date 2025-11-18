@@ -1,32 +1,25 @@
-version: "3.9"
+version: '3.8'
 
 services:
   isaac-sim:
-    image: nvcr.io/nvidia/isaac-sim:4.2.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: isaac_ros2_container
-    runtime: nvidia
     environment:
-      - ACCEPT_EULA=Y
-      - PRIVACY_CONSENT=Y
-      - DISPLAY=${DISPLAY}
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      # X11 socket for GUI
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # Isaac Sim user data (persists settings, cache, logs)
-      - isaac_user_data:/home/developer/.nvidia-omniverse
-      # Host ROS 2 workspace
-      - ~/ros2_ws:/workspace/ros2_ws:rw
+      ACCEPT_EULA: "Y"
+      DISPLAY: :1
+      NVIDIA_DRIVER_CAPABILITIES: all
+      NVIDIA_VISIBLE_DEVICES: all
+      PRIVACY_CONSENT: "Y"
     network_mode: host
+    runtime: nvidia
     stdin_open: true
     tty: true
-    command: >
-      bash -c "
-        id -u developer &>/dev/null || useradd -m -s /bin/bash developer &&
-        chown -R developer:developer /workspace /home/developer &&
-        sudo -u developer bash
-      "
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - isaac_user_data:/home/developer/.nvidia-omniverse
+      - /home/chris/ros2_ws:/workspace/ros2_ws:cached
 
 volumes:
   isaac_user_data:

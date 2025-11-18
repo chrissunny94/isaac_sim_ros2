@@ -21,5 +21,10 @@
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace/ros2_ws,type=bind,consistency=cached"
   ],
-  "remoteUser": "root"
+  "remoteUser": "root",
+  "containerEnv": {
+    "ROS_DISTRO": "humble",
+    "OMNIVERSE_DIR": "/opt/isaac-sim"
+  },
+  "postStartCommand": ""
 }
