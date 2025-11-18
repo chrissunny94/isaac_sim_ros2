@@ -1,10 +1,7 @@
 {
-  "name": "Mowito Dev Container",
-  "dockerComposeFile": [
-    "docker-compose.yml"
-  ],
-  "service": "isaac-sim",
-  "workspaceFolder": "/workspace/ros2_ws",
+  "name": "IsaacSim Dev Container",
+  "dockerFile": "Dockerfile",
+  "workspaceFolder": "/home/${localEnv:USER}/ros2_ws",
   "shutdownAction": "stopCompose",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
@@ -19,12 +16,13 @@
   ],
   "forwardPorts": [8888, 5000, 8080],
   "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace/ros2_ws,type=bind,consistency=cached"
+    "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/ros2_ws,type=bind,consistency=cached"
   ],
-  "remoteUser": "root",
+  "remoteUser": "${localEnv:USER}",
+  "overrideCommand": false,
   "containerEnv": {
     "ROS_DISTRO": "humble",
     "OMNIVERSE_DIR": "/opt/isaac-sim"
   },
-  "postStartCommand": ""
+  "postStartCommand": "source /opt/ros/humble/setup.bash && echo 'ROS2 environment sourced'"
 }

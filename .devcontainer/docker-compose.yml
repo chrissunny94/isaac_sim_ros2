@@ -5,21 +5,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        USERNAME: sim
     container_name: isaac_ros2_container
     environment:
       ACCEPT_EULA: "Y"
-      DISPLAY: :1
+      DISPLAY: ${DISPLAY}
       NVIDIA_DRIVER_CAPABILITIES: all
       NVIDIA_VISIBLE_DEVICES: all
       PRIVACY_CONSENT: "Y"
+      ROS_DISTRO: humble
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+      LD_LIBRARY_PATH: /opt/isaac-sim/exts/omni.isaac.ros2_bridge/humble/lib:$LD_LIBRARY_PATH
     network_mode: host
-    runtime: nvidia
     stdin_open: true
     tty: true
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - isaac_user_data:/home/developer/.nvidia-omniverse
+      - isaac_user_data:/home/sim/.nvidia-omniverse
       - /home/chris/ros2_ws:/workspace/ros2_ws:cached
+    runtime: nvidia
 
 volumes:
   isaac_user_data:
